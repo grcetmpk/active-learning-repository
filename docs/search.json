@@ -1,0 +1,100 @@
+[
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "raw = FileAttachment(\"resources.csv\").csv()\n\n// Multi-valued tags are semicolon-separated in the CSV\nresources = raw.map(d =&gt; ({\n  ...d,\n  topics: d.topics.split(\";\").map(s =&gt; s.trim()).filter(Boolean)\n}))\n\nallTopics = [...new Set(resources.flatMap(d =&gt; d.topics))].sort()\nallLevels = [\"Beginner\", \"Intermediate\", \"Advanced\"]\nallTypes  = [...new Set(resources.map(d =&gt; d.type))].sort()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSearch\n\nviewof query = Inputs.text({placeholder: \"Search title, description, tags…\", width: \"100%\"})\n\n\n\n\n\n\nTopic\n\nviewof selTopics = Inputs.checkbox(allTopics)\n\n\n\n\n\n\nLevel\n\nviewof selLevels = Inputs.checkbox(allLevels)\n\n\n\n\n\n\nType\n\nviewof selTypes = Inputs.checkbox(allTypes)\n\n\n\n\n\n\n\n\n\nfiltered = resources.filter(d =&gt; {\n  const words = query.trim().toLowerCase().split(/\\s+/);\n  const haystack = [d.title, d.topics.join(\" \"), d.level, d.type, d.time]\n    .join(\" \").toLowerCase();\n  const textOk = words.every(w =&gt; haystack.includes(w));\n\n  // Matches any selected topic; nothing selected = no filter\n  const topicOk = selTopics.length === 0 || selTopics.some(t =&gt; d.topics.includes(t));\n  const levelOk = selLevels.length === 0 || selLevels.includes(d.level);\n  const typeOk  = selTypes.length === 0  || selTypes.includes(d.type);\n\n  return textOk && topicOk && levelOk && typeOk;\n})\n\nmd`**${filtered.length}** of ${resources.length} resources`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInputs.table(filtered, {\n  columns: [\"title\",  \"topics\", \"level\", \"type\", \"time\"],\n  header: {title: \"Title\",  topics: \"Topics\", level: \"Level\", type: \"Type\", time: \"Time\"},\n  format: {\n    title: (x, i, data) =&gt; htl.html`&lt;a href=\"${data[i].url}\" target=\"_blank\" rel=\"noopener\"&gt;${x}&lt;/a&gt;`,\n    topics: x =&gt; x.join(\", \")\n  },\n  width: {title: 220, topics: 180, level: 100, type: 110, time: 100},\n  layout: \"auto\",\n  rows: 25,\n  required: false,\n  multiple: false\n})"
+  },
+  {
+    "objectID": "pokemon-bootstrap/index.html#description",
+    "href": "pokemon-bootstrap/index.html#description",
+    "title": "Bootstrapping with Pokemon Cards",
+    "section": "Description",
+    "text": "Description\nGrab your students’ attentions with a deck of Pokemon cards and start bootstrapping! Using physical, recognizable cards will allow students to identify what it means to sample with replacement. Plus, cards are easily shuffled and scrambled.\nThere are numeric values (HP - found in the top right corner) and categorical values (type, rarity, colour) that you can record data for on each card."
+  },
+  {
+    "objectID": "pokemon-bootstrap/index.html#learning-outcomes",
+    "href": "pokemon-bootstrap/index.html#learning-outcomes",
+    "title": "Bootstrapping with Pokemon Cards",
+    "section": "Learning outcomes:",
+    "text": "Learning outcomes:\nAfter the activity, students will be able to:\n\nIdentify that bootstrapping involves sampling with replacement\nCalculate bootstrap sample means/proportions"
+  },
+  {
+    "objectID": "pokemon-bootstrap/index.html#materials-needed",
+    "href": "pokemon-bootstrap/index.html#materials-needed",
+    "title": "Bootstrapping with Pokemon Cards",
+    "section": "Materials Needed",
+    "text": "Materials Needed\n\nDocument Camera\n50(ish) Pokemon (or other) cards.\nPen/paper or a white board\n\n(Psst.. Are you at UBC? Ask Grace for a deck!)"
+  },
+  {
+    "objectID": "pokemon-bootstrap/index.html#directions",
+    "href": "pokemon-bootstrap/index.html#directions",
+    "title": "Bootstrapping with Pokemon Cards",
+    "section": "Directions",
+    "text": "Directions\nBefore class\n\nCalculate a population quantity (mean or proportion) of all cards in your deck. Record this somewhere so you can reference it in class.\n\nIn class\n\nAfter introducing the bootstrapping algorithm in lecture, create a research question related to the Pokemon card (population) deck. For example, what is the mean HP of my deck? Or, what proportion of my cards are electric type?\nTake a small sample (10ish) from your deck (I ask 10 students to each pick one card). Put the rest aside and tell students that you won’t touch any more cards for bootstrapping. Show the 10 cards under the document cam, emphasizing that each one is a unique Pokemon. Note the measurement of interest (HP, type)\nCalculate the sample mean/proportion of the 10 cards. Record it.\nTake the 10 cards and shuffle them. Draw one card, record the value of interest, and put the card back into the deck.\nShuffle, choose, and record 9 more times. Note when the same card is chosen more than once!\nTake the 10 measurements and calculate the bootstrap mean/proportion. Record this on the paper/board as the first bootstrap mean/proportion.\nRepeat steps 5-7 once more, emphasizing that you did NOT take a new sample. Record this on the paper/board as the first bootstrap mean/proportion.\nCompare and contrast the two bootstrap estimates to each other.\nThey will likely differ.\nCompare the two bootstrap means/proportions to the sample mean/proportion.\nWith more samples, the bootstrap sample means/proportions would average out to this value.\nCompare the two bootstrap means/proportions to the population mean/proportion you calculated before class.\nThese may be quite different as the bootstrap means/proportions center around the sample mean, not the population one. If you get unlucky with your initial sample, then the bootstrap samples will be different from the population too."
+  },
+  {
+    "objectID": "carrot-bootstrap/index.html#description",
+    "href": "carrot-bootstrap/index.html#description",
+    "title": "Bootstrapping with Carrots: Shiny Applet + Activity",
+    "section": "Description",
+    "text": "Description\nConnect the dots between the population, sample, and bootstrap sample with this interactive applet.\nA farmer has been tending to a large field of carrots and would like to evaluate their growth. The farmer is only willing to give you 30 random carrots to assess their growth.\nThis applet and associated activity was tested with small group of undergraduate students."
+  },
+  {
+    "objectID": "carrot-bootstrap/index.html#learning-outcomes",
+    "href": "carrot-bootstrap/index.html#learning-outcomes",
+    "title": "Bootstrapping with Carrots: Shiny Applet + Activity",
+    "section": "Learning outcomes:",
+    "text": "Learning outcomes:\nAfter the activity, students will be able to:\n\nIdentify that bootstrapping involves sampling with replacement\nCalculate bootstrap sample means/proportions\nCompare and contrast the population, sampling, and bootstrap distributions\nConstruct and interpret 95% plausible ranges"
+  },
+  {
+    "objectID": "carrot-bootstrap/index.html#materials-needed",
+    "href": "carrot-bootstrap/index.html#materials-needed",
+    "title": "Bootstrapping with Carrots: Shiny Applet + Activity",
+    "section": "Materials Needed",
+    "text": "Materials Needed\n\nActivity: Download Activity PDF Download Activity Source File (.qmd)\nLink to Applet: https://grcetmpk.shinyapps.io/bootstrap_dsci100/\n\nIf you’d like to edit the activity, download and edit the source file."
+  },
+  {
+    "objectID": "carrot-bootstrap/index.html#directions",
+    "href": "carrot-bootstrap/index.html#directions",
+    "title": "Bootstrapping with Carrots: Shiny Applet + Activity",
+    "section": "Directions",
+    "text": "Directions\n\nProvide students with the link to the applet and the activity\n(Optional) Do Part 1 together in class\nAllow students to work through the rest of the activity in pairs!"
+  },
+  {
+    "objectID": "carrot-bootstrap/index.html#student-feedback",
+    "href": "carrot-bootstrap/index.html#student-feedback",
+    "title": "Bootstrapping with Carrots: Shiny Applet + Activity",
+    "section": "Student Feedback",
+    "text": "Student Feedback\n\n“I was satisfied with this app because it seemed like it was meant to be a visual approach to learning”\n“I like that you can see some of the samples were drawn with replacement quite clearly”\n“[using only the] Jupyter worksheets [and not the applet], I had misconceptions about the whole concept at first”\n“It’s nice that the worksheet tells you the record the means”"
+  },
+  {
+    "objectID": "globalwater/index.html#description",
+    "href": "globalwater/index.html#description",
+    "title": "Sampling the Globe",
+    "section": "Description",
+    "text": "Description\nHow can you determine the proportion of the Earth that is covered in water using only a globe?\nYou may be tempted to start calculating complex areas, but the answer is much easier - we can use simple random sampling!\nIn this activity, students will throw around an inflatable globe to obtain random samples. There is also a simple, optional applet that can help you keep track and visualize the samples as you go."
+  },
+  {
+    "objectID": "globalwater/index.html#learning-outcomes",
+    "href": "globalwater/index.html#learning-outcomes",
+    "title": "Sampling the Globe",
+    "section": "Learning outcomes:",
+    "text": "Learning outcomes:\nAfter the activity, students will be able to:\n\nDefine and recall the weak law of large numbers\nIdentify a real application of the weak law of large numbers"
+  },
+  {
+    "objectID": "globalwater/index.html#materials-needed",
+    "href": "globalwater/index.html#materials-needed",
+    "title": "Sampling the Globe",
+    "section": "Materials Needed",
+    "text": "Materials Needed\n\nInflatable globe\nLink to globe water tracker OR pen/paper/white board\n\n(Psst.. Are you at UBC? Ask Grace for the inflatable globe!)"
+  },
+  {
+    "objectID": "globalwater/index.html#directions",
+    "href": "globalwater/index.html#directions",
+    "title": "Sampling the Globe",
+    "section": "Directions",
+    "text": "Directions\n\nSet the scene:\n\n\nSuppose you wash up on deserted island with no internet connection. A pirate appears and offers you the opportunity to catch a ride back with them to the nearest city so long as you can answer one question: what proportion of the Earth’s surface is water? Unfortunately, you’ve bumped your head and cannot remember basic trivia. The pirate offers you a globe to assist in your answer. How can you get off of this island?\n\n\nStudents will throw the ball around and indicate whether or not the point under their index finger is LAND or WATER. You can keep track of the LAND vs WATER count, stopping every so often to get the sample mean. You can also track it on this app here: globe water tracker\n\nAfter about 10 or so points, you will see it start to converge to the true value or 71%."
+  }
+]

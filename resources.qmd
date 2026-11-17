@@ -1,0 +1,99 @@
+---
+title: "Resources"
+---
+
+```{=html}
+<style>
+  table td {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    vertical-align: top;
+  }
+</style>
+```
+
+```{ojs}
+//| echo: false
+raw = FileAttachment("resources.csv").csv()
+
+// Multi-valued tags are semicolon-separated in the CSV
+resources = raw.map(d => ({
+  ...d,
+  topics: d.topics.split(";").map(s => s.trim()).filter(Boolean)
+}))
+
+allTopics = [...new Set(resources.flatMap(d => d.topics))].sort()
+allLevels = ["Beginner", "Intermediate", "Advanced"]
+allTypes  = [...new Set(resources.map(d => d.type))].sort()
+```
+
+::::: grid
+::: {.g-col-12 .g-col-md-3}
+**Search**
+
+```{ojs}
+//| echo: false
+viewof query = Inputs.text({placeholder: "Search title, description, tags…", width: "100%"})
+```
+
+**Topic**
+
+```{ojs}
+//| echo: false
+viewof selTopics = Inputs.checkbox(allTopics)
+```
+
+**Level**
+
+```{ojs}
+//| echo: false
+viewof selLevels = Inputs.checkbox(allLevels)
+```
+
+**Type**
+
+```{ojs}
+//| echo: false
+viewof selTypes = Inputs.checkbox(allTypes)
+```
+:::
+
+::: {.g-col-12 .g-col-md-9}
+```{ojs}
+//| echo: false
+filtered = resources.filter(d => {
+  const words = query.trim().toLowerCase().split(/\s+/);
+  const haystack = [d.title, d.topics.join(" "), d.level, d.type, d.time]
+    .join(" ").toLowerCase();
+  const textOk = words.every(w => haystack.includes(w));
+
+  // Matches any selected topic; nothing selected = no filter
+  const topicOk = selTopics.length === 0 || selTopics.some(t => d.topics.includes(t));
+  const levelOk = selLevels.length === 0 || selLevels.includes(d.level);
+  const typeOk  = selTypes.length === 0  || selTypes.includes(d.type);
+
+  return textOk && topicOk && levelOk && typeOk;
+})
+
+md`**${filtered.length}** of ${resources.length} resources`
+```
+
+```{ojs}
+//| echo: false
+Inputs.table(filtered, {
+  columns: ["title",  "topics", "level", "type", "time"],
+  header: {title: "Title",  topics: "Topics", level: "Level", type: "Type", time: "Time"},
+  format: {
+    title: (x, i, data) => htl.html`<a href="${data[i].url}" target="_blank" rel="noopener">${x}</a>`,
+    topics: x => x.join(", ")
+  },
+  width: {title: 220, topics: 180, level: 100, type: 110, time: 100},
+  layout: "auto",
+  rows: 25,
+  required: false,
+  multiple: false
+})
+```
+:::
+:::::

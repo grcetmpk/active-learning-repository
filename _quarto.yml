@@ -1,0 +1,19 @@
+project:
+  type: website
+  output-dir: docs
+  resources:
+    - "carrot-bootstrap/activity.qmd"
+
+website:
+  title: " "
+  navbar:
+    left: 
+      - href: index.qmd
+        text: Home
+      - resources.qmd
+      - contributors.qmd
+
+format:
+  html:
+    theme: cosmo
+    page-layout: full
