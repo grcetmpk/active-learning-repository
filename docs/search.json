@@ -35,6 +35,13 @@
     "text": "Directions\nBefore class\n\nCalculate a population quantity (mean or proportion) of all cards in your deck. Record this somewhere so you can reference it in class.\n\nIn class\n\nAfter introducing the bootstrapping algorithm in lecture, create a research question related to the Pokemon card (population) deck. For example, what is the mean HP of my deck? Or, what proportion of my cards are electric type?\nTake a small sample (10ish) from your deck (I ask 10 students to each pick one card). Put the rest aside and tell students that you won’t touch any more cards for bootstrapping. Show the 10 cards under the document cam, emphasizing that each one is a unique Pokemon. Note the measurement of interest (HP, type)\nCalculate the sample mean/proportion of the 10 cards. Record it.\nTake the 10 cards and shuffle them. Draw one card, record the value of interest, and put the card back into the deck.\nShuffle, choose, and record 9 more times. Note when the same card is chosen more than once!\nTake the 10 measurements and calculate the bootstrap mean/proportion. Record this on the paper/board as the first bootstrap mean/proportion.\nRepeat steps 5-7 once more, emphasizing that you did NOT take a new sample. Record this on the paper/board as the first bootstrap mean/proportion.\nCompare and contrast the two bootstrap estimates to each other.\nThey will likely differ.\nCompare the two bootstrap means/proportions to the sample mean/proportion.\nWith more samples, the bootstrap sample means/proportions would average out to this value.\nCompare the two bootstrap means/proportions to the population mean/proportion you calculated before class.\nThese may be quite different as the bootstrap means/proportions center around the sample mean, not the population one. If you get unlucky with your initial sample, then the bootstrap samples will be different from the population too."
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": " ",
+    "section": "",
+    "text": "Statistics and data science classes don’t have to be boring!\nOn this website, you will find ideas for activities and resources to help you inject life back into your classroom."
+  },
+  {
     "objectID": "carrot-bootstrap/index.html#description",
     "href": "carrot-bootstrap/index.html#description",
     "title": "Bootstrapping with Carrots: Shiny Applet + Activity",

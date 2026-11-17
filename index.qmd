@@ -1,4 +1,10 @@
 ---
-title: "Repository for Active Learning in Statistics"
+title: ""
 format: html
 ---
+
+![](activelearning.png){fig-align="center" width="750"}
+
+**Statistics and data science classes don't have to be boring!**
+
+On this website, you will find ideas for activities and resources to help you inject life back into your classroom.
