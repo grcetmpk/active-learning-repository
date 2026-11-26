@@ -20,12 +20,16 @@ raw = FileAttachment("resources.csv").csv()
 // Multi-valued tags are semicolon-separated in the CSV
 resources = raw.map(d => ({
   ...d,
-  topics: d.topics.split(";").map(s => s.trim()).filter(Boolean)
+  topics: d.topics.split(";").map(s => s.trim()).filter(Boolean),
+  type: d.type.split(";").map(s => s.trim()).filter(Boolean)
+
 }))
+
+
 
 allTopics = [...new Set(resources.flatMap(d => d.topics))].sort()
 allLevels = ["Beginner", "Intermediate", "Advanced"]
-allTypes  = [...new Set(resources.map(d => d.type))].sort()
+allTypes  = [...new Set(resources.flatMap(d => d.type))].sort()
 ```
 
 ::::: grid
